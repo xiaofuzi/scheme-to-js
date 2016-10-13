@@ -1,0 +1,26 @@
+{
+  "name": "schemejs",
+  "version": "1.0.0",
+  "description": "a simple parser",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -w",
+    "run": "node ./build/app.js"
+  },
+  "keywords": [
+    "parser"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "webpack": "^1.13.2"
+  },
+  "author": "yangxiaofu",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.16.4"
+  }
+}
