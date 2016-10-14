@@ -74,6 +74,9 @@ function atomCallExpression () {
     }
 }
 
+/**
+ * (add 3 (sub 4 1))
+ */
 function callExpression () {
     return function (state) {
         var result = wsequence(
@@ -108,7 +111,45 @@ function callExpression () {
 }
 
 /**
- * 四则运算
+ * 空语句
+ */
+function nilExpression () {
+    let result = wsequence(
+            leftParen(),
+            rightParen()
+        )
+    if (!result) {
+        return result;
+    }
+
+    return {
+        type: 'nilExpression'
+    }
+}
+//test: ((((()))))
+
+/**
+ * 多层级语句
+ */
+function mutipCallExpression () {
+    let result = wsequence(
+            leftParen(),
+            CallExpression(),
+            rightParen()
+        )
+    if (!result) {
+        return result;
+    }
+
+    return {
+        type: 'nilExpression'
+    }
+} 
+
+console.log(nilExpression()(ps('()')));
+
+/**
+ * 四则运算, 等同于函数调用
  */
 function operator () {
     return choice(
@@ -119,24 +160,12 @@ function operator () {
             );
 }
 
-function binaryExpression () {
-    return function (state) {
-        return action(
-                wsequence(
-                    leftParen(),
-                    int(),
-                    operator(),
-                    int(),
-                    rightParen()
-                ), function (ast) {
-                    return {
-                        type: 'BinaryExpression',
-                        operator: ast[2],
-                        left: ast[1],
-                        right: ast[3]
-                    }
-                })
-    }
+/**
+ * 变量声明、赋值
+ * (let (x 3))
+ */
+function VariableDeclaration () {
+
 }
 
 /**

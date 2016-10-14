@@ -145,6 +145,21 @@ export function choice () {
     }
 }
 
+export function not (p) {
+    p = toParser(p);
+
+    return function(state){
+        let result = false;
+        if (state.length >= 1) {
+            if (!p(state)) {
+                result = make_result(state.advance(1), state.at(0), state.at(0));
+            }
+        }
+
+        return result;
+    }
+}
+
 export function repeat1 (p) {
     p = toParser(p);
 
